@@ -1,16 +1,18 @@
+import {Routes,Route} from 'react-router-dom';
+import {Nav} from './components/Nav';
+import {Newtask} from './components/Newtask';
 import './App.css';
 
-function App() {
+export function App() {
   return (
-    <div className="container m-40 mx-auto px-10">
-    <h1 className="text-2xl font-bold text-cyan-800">
-      Tailwind 3 With React Js
-    </h1>
-    <button className="btn-green">
-      success
-    </button>
-  </div>
+ <>
+  <Nav/>
+  <Routes>
+    <Route path="/"  element={<h1>Listtask</h1>}/>
+    <Route path="/newtask"  element={<Newtask/>}/>
+  </Routes>
+ </>
   );
 }
 
-export default App;
+
