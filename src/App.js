@@ -1,16 +1,24 @@
 import {Routes,Route} from 'react-router-dom';
 import {Nav} from './components/Nav';
 import {Newtask} from './components/Newtask';
+import {Tasklist} from './components/Tasklist';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import './App.css';
 
 export function App() {
+  const queryClient = new QueryClient();
+
   return (
  <>
-  <Nav/>
-  <Routes>
-    <Route path="/"  element={<h1>Listtask</h1>}/>
-    <Route path="/newtask"  element={<Newtask/>}/>
-  </Routes>
+   <QueryClientProvider client={queryClient}>
+    <Nav/>
+    <Routes>
+      <Route path="/"  element={<Tasklist/>}/>
+      <Route path="/newtask"  element={<Newtask/>}/>
+    </Routes>
+    <ReactQueryDevtools initialIsOpen={false} />
+   </QueryClientProvider>
  </>
   );
 }

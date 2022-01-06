@@ -1,15 +1,14 @@
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
-export  function Navitem({to,children,isActive,handleActive}) {
+export  function Navitem({to,children}) {
     return (
         <li>
-          <Link
+          <NavLink
            to={to}
-           className={`block px-3 py-2 rounded-md ${isActive ? 'bg-sky-500 text-white' : 'bg-gray-200'}`}
-           onClick={handleActive}
-           >
+           className={({isActive})=> isActive ? 'block px-3 py-2 rounded-md bg-sky-500 text-white' : 'block px-3 py-2 rounded-md bg-gray-200'}
+            >
            {children}
-           </Link>  
+           </NavLink>  
         </li>
     )
 }
