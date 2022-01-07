@@ -1,10 +1,14 @@
 import {useState,useEffect} from 'react'
 import axios from 'axios';
+import {useMutation,useQueryClient}from 'react-query';
+import { updateTask } from '../services/task-api';
 
 
 export  function useTask(idtask) {
 
     const[task,setTask]=useState({});
+    const queryClient = useQueryClient();
+
     //find one task 
     useEffect(() =>{
        findTask(idtask) 
@@ -16,8 +20,13 @@ export  function useTask(idtask) {
        setTask(data);
       }
    }
+      const updatemut= useMutation((uptask,idtask)=>updateTask(uptask,idtask),{
+           onSuccess: () => queryClient.invalidateQueries('taskData'),
+      })
+
    return{
-       task
+       task,
+       updatemut
    }
  }
    

@@ -26,3 +26,8 @@ export const findTask= async(id)=>{
     return data;
    }
 }
+
+export const updateTask=async(uptask)=>{
+    const{data}= await axios.put(`http://localhost:5000/api/tasks/update`,uptask);
+    return data
+}

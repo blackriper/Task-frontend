@@ -5,7 +5,7 @@ import { Addnot } from '../components/Addnot';
 import { useForm } from 'react-hook-form';
 import { DateTime } from "luxon";
 import { formatDate } from '../services/methods';
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 
 
 export function Newtask({isUpdate}) {
@@ -14,14 +14,17 @@ export function Newtask({isUpdate}) {
   const { addmutation } = useTasks();
   const { register, formState: { errors }, handleSubmit, reset } = useForm();
   const { idtask } = useParams();
-  const { task } = useTask(idtask);
+  const { task,updatemut } = useTask(idtask);
+  let navigate = useNavigate();
 
   
 
   const createTask = (data) => {
     if (idtask) {
-
-
+      updatemut.mutate({id:idtask,...data});
+      setTimeout(navigate("/"),4000)
+     
+      
     } else {
       let date_created = formatDate(DateTime.now());
       addmutation.mutate({ date_created, ...data });
@@ -78,7 +81,7 @@ export function Newtask({isUpdate}) {
           <div className="mt-6 text-center">
             <button className="btn">{isUpdate?'Update task':'Add task'}</button>
           </div>
-          <Addnot mutation={addmutation} />
+          <Addnot mutation={isUpdate?updatemut:addmutation}  isupdate={isUpdate}/>
         </form>
       </div>
     </>
