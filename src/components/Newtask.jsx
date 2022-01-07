@@ -1,18 +1,22 @@
 import{useNames} from '../hooks/useNames';
 import {useTasks}from '../hooks/useTasks';
+import{Addnot}from '../components/Addnot';
 import {useForm}from 'react-hook-form';
 import { DateTime } from "luxon";
-
+import { formatDate } from '../services/methods';
 
 export function Newtask() {
+
     const {names}=useNames();
-    const{mutation}=useTasks();
-    const {register,formState:{errors},handleSubmit}=useForm();
+    const{addmutation}=useTasks();
+    const {register,formState:{errors},handleSubmit,reset}=useForm();
+
     const createTask= (data)=>{
-       let dt=DateTime.now();
-       let date_created=dt.toLocaleString()
-        mutation.mutate({date_created,...data})
-    }
+       let date_created= formatDate(DateTime.now());
+       addmutation.mutate({date_created,...data});
+       reset();
+     }
+
 
      return (
         <>
@@ -47,9 +51,9 @@ export function Newtask() {
                     <div className="mt-6 text-center">
                       <button className="btn">Add task</button> 
                     </div>
+                    <Addnot mutation={addmutation}/>
                </form>
-               {mutation.isSuccess ? <div>Todo added!</div> : null} 
-            </div>
+             </div>
          </>
     )
 }

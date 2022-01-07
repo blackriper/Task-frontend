@@ -1,20 +1,28 @@
 import {useQuery,useMutation} from 'react-query';
-import axios from 'axios';
+import { getTasks,newTask,deleteTask,completedTask } from '../services/task-api';
 
 export function useTasks() {
 
-    const {isLoading,error, data}=useQuery('taskData',() =>
-          axios.get('http://localhost:5000/api/tasks').then((response) =>response.data)
-     )
+    //get all task
+    const {isLoading,error, data}=useQuery('taskData',getTasks,{
+        notifyOnChangeProps: ['data', 'error'],
+    });
+    //add new task
+    const addmutation=useMutation(newtask=>newTask(newtask));
 
-     const mutation=useMutation(newtask=>{
-         return axios.post('http://localhost:5000/api/newtask',newtask)
-     })
+    //delete one task
+    const delmutation=useMutation(idtask=>deleteTask(idtask));
 
-     return {
+    const upmutation=useMutation((idtask)=>completedTask(idtask));
+
+     
+
+      return {
          isLoading,
          error,
          data,
-         mutation
+         addmutation,
+         delmutation,
+         upmutation         
      }
 }

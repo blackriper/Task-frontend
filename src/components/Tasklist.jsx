@@ -5,11 +5,21 @@ import {Loading} from './Loading';
 import {Errormessage} from './Errormessage';
 
 export function Tasklist() {
-    const {isLoading,error, data}=useTasks();
+    const {isLoading,error, data,delmutation}=useTasks();
 
-    if (isLoading) return <Loading/>
+    const deleteOne= (id) =>{
+        if (window.confirm("Do you really want to delete task?")) {  
+           delmutation.mutate(id); 
+          
+        }
+      }
+
+    if (isLoading) return <Loading text="Loading task..."/>
  
     if (error) return <Errormessage error={error}/>
+
+  
+   
     
    
     return (
@@ -19,9 +29,10 @@ export function Tasklist() {
            </div>  
            <div className="grid grid-rows-2 justify-items-center mt-6">
             {data.map((task) =>
-                    <Cardtask task={task} key={task.id}/>
+                    <Cardtask task={task} key={task.id} handleDelete={()=>deleteOne(task.id)}/>
                 )}
            </div>
+           {delmutation.isSuccess?<p className="text-green-500 text-lg text-center">Task delete sucesfully</p>:''}
         </>
     )
 }
