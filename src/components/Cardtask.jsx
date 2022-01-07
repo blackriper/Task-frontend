@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useTasks } from "../hooks/useTasks";
 
-export function Cardtask({task,handleDelete}) {
+export function Cardtask({task,handleDelete,handleUpdate}) {
    const [done,setdone]=useState(task.completed);
    const{upmutation}=useTasks();
 
@@ -21,7 +21,7 @@ export function Cardtask({task,handleDelete}) {
           
             <hr className="border-gray-200 my-1 border-bottom-none" style={{"borderTopWidth":0}}/>
             <div className="grid grid-cols-2 justify-center  space-x-4">
-            <button className="btn-update">Update task</button>
+            <button className="btn-update" disabled={done} onClick={handleUpdate}>Update task</button>
             <button className="btn-delete" onClick={handleDelete}>Delete task</button>
             </div>
            </div>

@@ -16,6 +16,7 @@ export function App() {
     <Routes>
       <Route path="/"  element={<Tasklist/>}/>
       <Route path="/newtask"  element={<Newtask/>}/>
+      <Route path="update/:idtask" element={<Newtask isUpdate />} />
     </Routes>
     <ReactQueryDevtools initialIsOpen={false} />
    </QueryClientProvider>

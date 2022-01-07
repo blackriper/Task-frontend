@@ -22,7 +22,7 @@
        @apply font-semibold leading-tight text-2xl text-center text-gray-800 hover:text-gray-800
    }
    .btn-update{
-       @apply bg-indigo-600 hover:bg-indigo-700  border shadow-sm font-semibold text-white
+       @apply bg-indigo-600 hover:bg-indigo-700  border shadow-sm font-semibold text-white disabled:bg-gray-50 disabled:text-gray-500 disabled:border-gray-200 
    }
    .btn-delete{
        @apply bg-red-600 hover:bg-red-900  border shadow-sm font-semibold text-white
